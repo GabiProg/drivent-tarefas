@@ -23,19 +23,22 @@ export async function showAllTickets(req: AuthenticatedRequest, res: Response) {
 }
 
 export async function insertTicketTypeId(req: AuthenticatedRequest, res: Response) {
-  const ticketTypeId = req.body;
+  const { ticketTypeId } = req.body as { ticketTypeId: number };
   const userId = req.userId;
   try {
     if (!ticketTypeId) {
       return res.sendStatus(httpStatus.BAD_REQUEST);
     }
-    await ticketsService.insertTicketTypeId(ticketTypeId, userId);
-    const newTicketId = await ticketsService.listTicketsParcialInfos(userId);
-    return res.status(httpStatus.CREATED).send(newTicketId);
+
+    const p = await ticketsService.insertTicketTypeId(ticketTypeId, userId);
+
+    // const newTicketId = await ticketsService.listTicketsParcialInfos(userId);
+    console.log(p);
+    return res.status(httpStatus.CREATED).send(p);
   } catch (error) {
-    if (error.name === "RequestError") {
-      return res.sendStatus(httpStatus.BAD_REQUEST);
+    if (error.name === "NotFoundError") {
+      return res.sendStatus(httpStatus.NOT_FOUND);
     }
-    return res.sendStatus(httpStatus.NOT_FOUND);
+    return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
