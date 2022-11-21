@@ -22,13 +22,15 @@ async function listTicketsParcialInfos(userId: number) {
   return ticketInfo;
 }
 
-async function insertTicketTypeId(userId: number, ticketTypeId: number) {
-  if (!ticketTypeId) throw invalidDataError([]);
-
+async function insertTicketTypeId(userId: number, ticketTypeId: number) { 
+  console.log(userId, ticketTypeId);
   const enroll = await enrollmentRepository.findWithAddressByUserId(userId);
-  //const statusInfo = await ticketsRepository.getStatusByUserId(userId);
-  const sendTicketId = await ticketsRepository.inserTicketType(ticketTypeId, enroll.id);
+  console.log(enroll);
+   
+  if (!enroll) throw notFoundError();
 
+  const sendTicketId = await ticketsRepository.inserTicketType(ticketTypeId, enroll.id);
+  console.log(sendTicketId);
   return sendTicketId;
 }
 const ticketsService = { listTicketsTypes, listTicketsParcialInfos, insertTicketTypeId };
