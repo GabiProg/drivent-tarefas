@@ -1,7 +1,6 @@
 import hotelRepository from "@/repositories/hotels-repository";
 import enrollmentRepository from "@/repositories/enrollment-repository";
 import { unauthorizedError, notFoundError, invalidDataError } from "@/errors";
-import { TicketStatus } from "@prisma/client";
 
 async function getHotelsList(userId: number) {
   const enrollmentId = await enrollmentRepository.findWithAddressByUserId(userId);
