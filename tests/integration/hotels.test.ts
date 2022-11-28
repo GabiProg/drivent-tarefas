@@ -134,7 +134,7 @@ describe("GET /hotels/:hotelId", () => {
     const token = await generateValidToken(user);
     const enrollment = await createEnrollmentWithAddress(user);
     const ticketType = await createTicketHotel(false, true);
-    //const ticketType = await createTicketType();
+    
     await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
 
     const hotel = await createHotel();
