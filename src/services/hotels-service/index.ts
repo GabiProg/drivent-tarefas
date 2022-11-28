@@ -27,7 +27,6 @@ async function getHotelRoomsById(userId: number, hotelId: number) {
   if (!getPaidTicket) throw notFoundError();
     
   const listHotels = await hotelRepository.getHotelsList(getPaidTicket.ticketTypeId);
-  console.log(listHotels);
   if (!listHotels) throw notFoundError();
 
   const getHotelRooms = await hotelRepository.getHotelRoomsById(hotelId);
