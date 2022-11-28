@@ -8,7 +8,6 @@ import { cleanDb, generateValidToken } from "../helpers";
 import {
   createEnrollmentWithAddress,
   createUser,
-  createTicketType,
   createTicket,
   createTicketTypeValid,
   createTicketHotel,
