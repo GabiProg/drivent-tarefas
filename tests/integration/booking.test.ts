@@ -11,7 +11,6 @@ import {
   createUser,
   createTicket,
   createRoomWithSmallCapacity,
-  getRoomId,
   createInavlidTicket,
   createTicketTypeValid,
   createBooking,
