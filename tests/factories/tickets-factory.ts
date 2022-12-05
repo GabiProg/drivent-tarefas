@@ -52,3 +52,14 @@ export async function createTicketHotel(isRemote: boolean, includesHotel: boolea
     },
   });
 }
+
+export async function createInavlidTicket() {
+  return prisma.ticketType.create({
+    data: {
+      name: "Fulano da Silva",
+      price: faker.datatype.number(),
+      isRemote: true,
+      includesHotel: false
+    }
+  });
+}
