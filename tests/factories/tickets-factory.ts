@@ -13,6 +13,28 @@ export async function createTicketType() {
   });
 }
 
+export async function createTicketTypeRemote() {
+  return prisma.ticketType.create({
+    data: {
+      name: faker.name.findName(),
+      price: faker.datatype.number(),
+      isRemote: true,
+      includesHotel: faker.datatype.boolean(),
+    },
+  });
+}
+
+export async function createTicketTypeWithHotel() {
+  return prisma.ticketType.create({
+    data: {
+      name: faker.name.findName(),
+      price: faker.datatype.number(),
+      isRemote: false,
+      includesHotel: true,
+    },
+  });
+}
+
 export async function createTicket(enrollmentId: number, ticketTypeId: number, status: TicketStatus) {
   return prisma.ticket.create({
     data: {
@@ -20,5 +42,46 @@ export async function createTicket(enrollmentId: number, ticketTypeId: number, s
       ticketTypeId,
       status,
     },
+  });
+}
+
+export async function getPaidTicket(enrollmentId: number) {
+  return prisma.ticket.findFirst({
+    where: {
+      enrollmentId,
+      status: TicketStatus.PAID
+    }
+  });
+}
+
+export async function findTicketType(ticketTypeId: number) {
+  return prisma.ticketType.findFirst({
+    where: {
+      id: ticketTypeId,
+      isRemote: false,
+      includesHotel: true,
+    }
+  });
+}
+
+export async function createTicketHotel(isRemote: boolean, includesHotel: boolean) {
+  return prisma.ticketType.create({
+    data: {
+      name: faker.name.findName(),
+      price: faker.datatype.number(),
+      isRemote,
+      includesHotel
+    },
+  });
+}
+
+export async function createInavlidTicket() {
+  return prisma.ticketType.create({
+    data: {
+      name: "Fulano da Silva",
+      price: faker.datatype.number(),
+      isRemote: true,
+      includesHotel: false
+    }
   });
 }

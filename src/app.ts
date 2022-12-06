@@ -8,9 +8,17 @@ import { loadEnv, connectDb, disconnectDB } from "@/config";
 loadEnv();
 
 import { handleApplicationErrors } from "@/middlewares";
-import { usersRouter, authenticationRouter, eventsRouter, enrollmentsRouter } from "@/routers";
-import { ticketTypesRouter } from "@/routers";
-import paymentsRoutes from "./routers/payments-route";
+import {
+  usersRouter,
+  authenticationRouter,
+  eventsRouter,
+  enrollmentsRouter,
+  ticketsRouter,
+  paymentsRouter,
+  hotelsRouter,
+  bookingRouter
+} from "@/routers";
+
 const app = express();
 app
   .use(cors())
@@ -20,8 +28,10 @@ app
   .use("/auth", authenticationRouter)
   .use("/event", eventsRouter)
   .use("/enrollments", enrollmentsRouter)
-  .use("/tickets", ticketTypesRouter)
-  .use(paymentsRoutes)
+  .use("/tickets", ticketsRouter)
+  .use("/payments", paymentsRouter)
+  .use("/hotels", hotelsRouter)
+  .use("/booking", bookingRouter)
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
